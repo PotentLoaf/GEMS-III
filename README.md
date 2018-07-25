@@ -2,7 +2,7 @@
 Projects from GEMS-III Program
 README file for project
 
-This project has these functionality:
+This project has these functionalities:
 
 1. Simulates the popular video-game 'Pokemon'
 2. Catch pokemon
