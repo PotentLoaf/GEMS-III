@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Jul 24 10:47:59 2018
-
 @author: stem
 """
 import time
@@ -75,13 +74,13 @@ oddish ={'name': 'Oddish', 'health' : 25, 'max health' : 25, 'attack' : 25, 'def
 
 pidgey = {'name' : 'Pidgey', 'health' : 28, 'max health' : 28, 'attack' : 20, 'defense' : 20, 'speed' : 30, 'exp' : 500, 'level' : 5, 'moves' : {'Tackle' : 35}, 'desc' : 'Pidgey is a Flying Pokémon. Among all the Flying Pokémon, it is the gentlest and easiest to capture. A perfect target for the beginning Pokémon Trainer to test his Pokémon''s skills.', 'type' : 'normal flying'}
 
-pikachu = {'name' : 'Pikachu' ,  'health' : 30, 'max health' : 30, 'attack' : 35, 'defense' : 23, 'speed' : 90, 'exp' : 500, 'level' : 5, 'moves' : {'Thundershock' : 40}, 'desc' : 'Pikachu, the Mouse Pokémon. It can generate electric attacks from the electric pouches located in both of its cheeks.', 'type' : 'electric'}
+pikachu = {'name' : 'Pikachu' ,  'health' : 30, 'max health' : 30, 'attack' : 35, 'defense' : 23, 'speed' : 90, 'exp' : 500, 'level' : 5, 'moves' : {'Electro Ball': 70, 'Thundershock' : 40}, 'desc' : 'Pikachu, the Mouse Pokémon. It can generate electric attacks from the electric pouches located in both of its cheeks.', 'type' : 'electric'}
 
-charmander = {'name' : 'Charmander' ,  'health' : 35, 'max health' : 35, 'attack' : 32, 'defense' : 25, 'speed' : 65, 'exp' : 500, 'level' : 5, 'moves' : {'Ember' : 40}, "desc" : 'Charmander, the Lizard Pokémon. When the tip of Charmander''s tail burns brightly, that indicates it''s in good health.', 'type' : 'fire'}
+charmander = {'name' : 'Charmander' ,  'health' : 35, 'max health' : 35, 'attack' : 32, 'defense' : 25, 'speed' : 65, 'exp' : 500, 'level' : 5, 'moves' : {'Scratch' : 35, 'Ember' : 40}, "desc" : 'Charmander, the Lizard Pokémon. When the tip of Charmander''s tail burns brightly, that indicates it''s in good health.', 'type' : 'fire'}
 
-squirtle = {'name' : 'Squirtle' ,  'health' : 39, 'max health' : 39, 'attack' : 24, 'defense' : 32, 'speed' : 43, 'exp' : 500, 'level' : 5, 'moves' : {'Water Gun': 45}, 'desc' : 'Squirtle. This Tiny Turtle Pokémon draws its long neck into its shell to launch incredible water attacks with amazing range and accuracy. The blasts can be quite powerful.', 'type' : 'water'}
+squirtle = {'name' : 'Squirtle' ,  'health' : 39, 'max health' : 39, 'attack' : 24, 'defense' : 32, 'speed' : 43, 'exp' : 500, 'level' : 5, 'moves' : {"Tackle": 35, 'Water Gun': 45}, 'desc' : 'Squirtle. This Tiny Turtle Pokémon draws its long neck into its shell to launch incredible water attacks with amazing range and accuracy. The blasts can be quite powerful.', 'type' : 'water'}
 
-bulbasaur = {'name' : 'Bulbasaur' ,  'health' : 40, 'max health' : 40, 'attack' : 25, 'defense' : 27, 'speed' : 45, 'exp' : 500, 'level' : 5, 'moves' : {'Vine Whip': 45}, 'desc' : 'Bulbasaur, the Seed Pokémon. A young Bulbasaur uses the nutrients from its seed for the energy it needs to grow.', 'type' : 'grass'}
+bulbasaur = {'name' : 'Bulbasaur' ,  'health' : 40, 'max health' : 40, 'attack' : 25, 'defense' : 27, 'speed' : 45, 'exp' : 500, 'level' : 5, 'moves' : {'Tackle' : 35,'Vine Whip': 45}, 'desc' : 'Bulbasaur, the Seed Pokémon. A young Bulbasaur uses the nutrients from its seed for the energy it needs to grow.', 'type' : 'grass'}
 
 
 
@@ -145,6 +144,7 @@ def attackBot(p1,p2):
     damg = int(dam*(list(p1['moves'].values())[move-1])/50) + random.randint(0,5)
     #here print the message of the move
     print(p1['name'], ' inflicts ', damg, ' with ', (list(p1['moves'].keys())[move-1]),'!')
+    time.sleep(1)
     p2['health'] -= damg
     if p2['health'] < 0:
         p2['health'] = 0
@@ -159,8 +159,10 @@ def run():
 		return False
 
 def displayHealth(p1, p2):
-	print(p1['name'],"'s Health: ", p1['health'], " / ", p1['max health'])
-	print(p2['name'],"s Health: ", p2['health'], " / ", p2['max health'])
+    print(p1['name'],"'s Health: ", p1['health'], " / ", p1['max health'])
+    print(p2['name'],"s Health: ", p2['health'], " / ", p2['max health'])
+    print("")
+    time.sleep(1)
 
 def expUp(p, exp):
     p['exp'] += exp
@@ -174,38 +176,47 @@ def expUp(p, exp):
         p['defense'] += 5
         p['health'] += 5
         p['speed'] += 5
+        p['max health'] += 5
+        print("All stats increased by 5 pts!")
     else:
         p['level'] = a
     
 
 def battle(p1, p2):
-    print('---', pName,"'s Turn---")
-    displayHealth(p1, p2)
-    print('What will ', p1['name'], ' do?')
-    print('1. Attack')
-	print('2. Catch')
-	print('3. Switch Pokemon')
-    print('4. Run')
-    choice= int(input('Enter your choice: '))
-    if choice == 1:
-        print('---',p1['name'], "'s Moves---")
-        y = 1
-        for x in p1['moves']:
-            print(y,'. ',x)
-        moveChoice = int(input('Enter your move: '))
-        attack(p1, p2, moveChoice)
+    while p1['health'] > 0 and p2['health'] > 0:
+        print('\n---', pName,"'s Turn---")
         displayHealth(p1, p2)
-	elif choice == 2:
-		catch(p2)
-    elif choice == 4:
-        if run() == True:
-			break
-    else:
-        print("Invalid move.")
-	if(p1['health'] > 0 and p2['health'] > 0):
-            print('---',p2['name'], "'s Turn---")
-			time.sleep(1)
-            attackBot(p2, p1)
+        print('What will ', p1['name'], ' do?')
+        print('1. Attack')
+        print('2. Catch')
+        print('3. Switch Pokemon')
+        print('4. Run')
+        choice= int(input('Enter your choice: '))
+        if choice == 1:
+            print('---',p1['name'], "'s Moves---")
+            y = 1
+            for x in p1['moves']:
+                print(y,'. ',x)
+                y += 1
+            moveChoice = int(input('Enter your move: '))
+            attack(p1, p2, moveChoice)
+            displayHealth(p1, p2)
+        elif choice == 2:
+            length = len(pokemon)
+            catch(p2)
+            if length < len(pokemon):
+                break
+        elif choice == 3:
+            switch(p1,p2)
+        elif choice == 4:
+            if run() == True:
+                break
+        else:
+            print("Invalid move.")
+        if(p1['health'] > 0 and p2['health'] > 0):
+                print('\n---',p2['name'], "'s Turn---")
+                time.sleep(1)
+                attackBot(p2, p1)
 def clean(pokemon):
     print("1 = Pet\n2 = Clean")
     choice = int(input("Enter in your choice!!!!!     "))
@@ -236,38 +247,40 @@ def clean(pokemon):
 def catch(p):
     print("You threw a pokeball!")
     time.sleep(2)
-	print("Shake")
-	time.sleep(1)
-	print("Shake")
-	time.sleep(1)
-	if p['health'] < p['max health']/2:
-		chance = random.randint(0,1)
-	else:
-		chance = random.randint(0,2)
-    if chance == 0:
-		print("Shake")
-		time.sleep(1)
-    	print("Congratulations! You have caught ", p['name'],"!")
-		pokemon.append(p)
+    print("Shake")
+    time.sleep(1)
+    print("Shake")
+    time.sleep(1)
+    if p['health'] < p['max health']/2:
+        chance = random.randint(0,1)
     else:
-		print("So close, the pokemon broke out!!!")
+        chance = random.randint(0,2)
+    if chance == 0:
+        print("Shake")
+        time.sleep(1)
+        print("Congratulations! You have caught ", p['name'],"!")
+        pokemon.append(p)
+    else:
+        print("So close, the pokemon broke out!!!")
+    
+    print("")
 		
 def switch(p,p2):
 	print("Your Pokemon: ")
 	count = 1
 	healthyP = []
 	order = []
-	for x in p:
-		if x['health'] > 0:
+	for x in pokemon:
+		if int(x['health']) > 0:
 			healthyP.append(x)
 			order.append(count)
 			print(count,". ", x['name'])
 			count += 1
-	choice = input("Enter the pokemon to switch in with the current one.")
+	choice = int(input("Enter the pokemon to switch in with the current one."))
 	battle(healthyP[choice-1], p2)
 	print("Go, ",healthyP[choice-1]['name'] , "!") #THIS PROBABLY WON'T WORK
-while pokemon[0]['health'] > 0 and pidgey['health'] > 0:
-    battle(pokemon[0],pidgey)
+
+battle(pokemon[0],pidgey)
     
 if pokemon[0]['health'] > 0:        
     print('You defeated Pidgey!')
@@ -278,12 +291,11 @@ else:
 
 print('After you defeat the wild Pidgey, you continue on route 20 to Viridian City as you journey through another patch of tall grass.  Suddenly, a wild Growlithe appears from the grass!')	
  
-while pokemon[0]['health'] > 0 and growlithe['health'] > 0:
-	battle(pokemon[0],growlithe)
-
+battle(pokemon[0],growlithe)
+expUp(pokemon[0],150)
 
 print('After you defeated the wild Growlithe, you arrive at Viridian City.')
-print('1. Go to the pokemon center and heal your pikachu.')
+print('1. Go to the pokemon center and heal your pokemon.')
 print('2. Go to the pokemart and buy some pokeballs and potions.')
 print('3. Go home')
 print("4. Clean your pokemon")
@@ -304,13 +316,15 @@ while go != 1 and go != 2:
 print('You then decide to walk around and explore Viridian City. While exploring, you bump into another trainer named Ian and he challenges you to your first trainer battle!')
 
 
-while pokemon[0]['health'] > 0 and oddish['health'] > 0:
-    battle(pokemon[0],oddish)
+battle(pokemon[0],oddish)
+expUp(pokemon[0],50)
+
 print("After the exhausting battle, you head to the nearby hotel to rest. Out of nowhere, a Seedot falls on top of your head and you discover gravity.")
 print("Achievement earned: Discovered Gravity")
 time.sleep(1)
-while pokemon[0]['health'] > 0 and seedot['health'] > 0:
-	battle(pokemon[0],seedot)
+
+battle(pokemon[0],seedot)
+expUp(pokemon[0],100)
 
 print("You finally head to the hotel after a long day's work.")
 print("Sleeping...")
@@ -325,14 +339,15 @@ heal(pokemon)
 print("You wake up refreshed and head to the gym to fight the gym leader who you heard has been ruling over the city as a dictator.")
 time.sleep(2)
 print("Brock, the evil rock type gym leader challenges you to your fist major pokemon battle against a trainer!!!  You must accept as he threatens to kidnap your pokemon!  Prove yourself for your and your pokemon's sakes!")
-while pokemon[0]['health'] > 0 and geodude['health'] > 0:
-    battle(pokemon[0],geodude)
-while pokemon[0]['health'] > 0 and oddish['health'] > 0:
-    battle(pokemon[0],oddish)
+battle(pokemon[0],geodude)
+expUp(pokemon[0],100)
+battle(pokemon[0],oddish)
+expUp(pokemon[0],100)
 
 print("Mwahahahaha!  I’ve still got my other Geodude for you to go through!  Go, Onix!")
-while pokemon[0]['health'] > 0 and geodude['health'] > 0:
-    battle(pokemon[0],geodude)
+geodude['health'] = geodude['max health']
+battle(pokemon[0],geodude)
+expUp(pokemon[0],100)
 
 print("Oh no!!  How did you, a measly scrub defeat my supreme pokemon?!!")
 
@@ -347,7 +362,7 @@ print("Would you like to continue this game?   \
 1. Continue or 2. Stop")
 choice= int(input('Enter your choice:  '))
 if choice == 1:
-    print('1. Go to the pokemon center and heal your pikachu.')
+    print('1. Go to the pokemon center and heal your pokemon.')
     print('2. Go to the pokemart and buy some pokeballs and potions.')
     print('3. Go home')
     print("4. Clean your pokemon")
@@ -367,31 +382,25 @@ if choice == 1:
             print('Invalid choice.')
             
         print("You wandered in the grass and suddenly, a wild Spearow appeared!")
-        while pokemon[0]['health'] > 0 and spearow['health'] > 0:
-            battle(pokemon[0],spearow)
+        battle(pokemon[0],spearow)
         
         print("A big Seedot fell out of the tree and hit you on the head!")
-        while pokemon[0]['health'] > 0 and seedot['health'] > 0:
-            battle(pokemon[0],seedot)
+        battle(pokemon[0],seedot)
         
         print("You decided to go for a swim in the ocean!")
-        while pokemon[0]['health'] > 0 and marill['health'] > 0:
-            battle(pokemon[0],marill)
+        battle(pokemon[0],marill)
         
         print("Bam!  A crazy magikarp slapped ya in the face!")
-        while pokemon[0]['health'] > 0 and magikarp['health'] > 0:
-            battle(pokemon[0],magikarp)
+        battle(pokemon[0],magikarp)
         
         print("Wow that was some great training for your pokemon!  \
         You went back into town!")
         
         print("A caterpie blocks your way!")
         
-        while pokemon[0]['health'] > 0 and caterpie['health'] > 0:
-            battle(pokemon[0],caterpie)
+        battle(pokemon[0],caterpie)
         
 elif choice == 2:
     print("BYE")
 else:
     print("ok")
-
