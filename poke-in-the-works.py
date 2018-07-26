@@ -5,9 +5,11 @@ Created on Tue Jul 24 10:47:59 2018
 
 @author: stem
 """
-
+import time
 import random
 #add stats to level up
+#add possible moves
+#speed
 #catch
 #items
 #moves option
@@ -26,25 +28,61 @@ freeze = 2
 burn = 3
 seed = 4
 #moves
-moves = {'Tackle' : {'power' : 35, 'type' : 'normal', 'message' : 'x tackled the opponent with all its might!', 'status' : none}, \
-'Splash' : {'power' : 0, 'type' :  'water', 'message' : 'the wild x used splash!  But splash did nothing!', 'status' : none}, \
-'Ice Beam' : {'power' : 90, 'type' : 'ice', 'message' : 'the wild x used ice beam!', 'status' : freeze},  \
-'Peck' : {'power' : 35, type : 'normal', 'message' : 'the wild x used peck!', 'status' : none}, \
-'Leech Seed' : {'power' : 0, 'type' :'grass', 'message' : 'the wild x used leech seed!', 'status' :  seed} ,  \
-'Scratch' : {'power' : 40, 'type' : 'normal', 'message' : 'the wild x used scratch!', 'status' : none}, \
-'Synthesis': {'power' : 0, 'type' : 'grass', 'message' : 'x used synthesis!', 'status' : none}, \
-'Rock Throw': {'power' : 50, 'type' : 'rock', 'message' : 'x used rock throw!', 'status' : none}, \
-'Ember' : {40, 'fire', 'the wild x used ember!', burn},\
-'Smack Down' : {'power' : 50, 'type' : 'rock', 'message' : 'the wild x used smack down!', 'status' : none}, \
-'Bite' : {'power': 38, 'type': 'dark', 'message' : 'the wild x used bite!', 'status' : none}}
-spearow ={'name': 'Spearow', 'health' : 31, 'attack' : 23, 'defense' : 22, 'speed' : 35, 'exp' : 800, 'level' : 8, 'moves' : {'Peck' : 35}}
-caterpie ={'name': 'Caterpie', 'health' : 32, 'attack' : 20, 'defense' : 18, 'speed' : 36, 'exp' : 900, 'level' : 9, 'moves' : {'Tackle' : 35}}
-oddish ={'name': 'Oddish', 'health' : 34, 'attack' : 30, 'defense' : 22,'speed' : 35, 'exp' : 1000, 'level' : 10, 'moves' : {'Leech Seed' : 0, 'Absorb' : 20}}
-pidgey = {'name' : 'Pidgey', 'health' : 28, 'max health' : 28, 'attack' : 20, 'defense' : 20, 'speed' : 30, 'exp' : 500, 'level' : 5, 'moves' : {'Tackle' : 35}} 
-pikachu = {'name' : 'Pikachu' ,  'health' : 30, 'max health' : 30, 'attack' : 25, 'defense' : 23, 'speed' : 40, 'exp' : 500, 'level' : 5, 'moves' : {'Thundershock' : 40}}
-charmander = {'name' : 'Charmander' ,  'health' : 35, 'max health' : 35, 'attack' : 28, 'defense' : 25, 'speed' : 28, 'exp' : 500, 'level' : 5, 'moves' : {'Scratch' : 40}}
-squirtle = {'name' : 'Squirtle' ,  'health' : 38, 'max health' : 38, 'attack' : 25, 'defense' : 30, 'speed' : 28, 'exp' : 500, 'level' : 5, 'moves' : {'Tackle' : 35}}
-bulbasaur = {'name' : 'Bulbasaur' ,  'health' : 35, 'max health' : 35, 'attack' : 25, 'defense' : 28, 'speed' : 30, 'exp' : 500, 'level' : 5, 'moves' : {'Tackle' : 35}}
+moves = {'Tackle' : {'name' : 'Tackle','power' : 35, 'type' : 'normal', 'message' : 'x tackled the opponent with all its might!', 'status' : none}, \
+'Splash' : {'name' : 'Splash','power' : 0, 'type' :  'water', 'message' : 'the wild x used splash!  But splash did nothing!', 'status' : none}, \
+'Ice Beam' : {'name' : 'Ice Beam','power' : 90, 'type' : 'ice', 'message' : 'the wild x used ice beam!', 'status' : freeze},  \
+'Peck' : {'name' : 'Peck','power' : 35, 'type' : 'normal', 'message' : 'the wild x used peck!', 'status' : none}, \
+'Leech Seed' : {'name' : 'Leech Seed','power' : 0, 'type' :'grass', 'message' : 'the wild x used leech seed!', 'status' :  seed} ,  \
+'Scratch' : {'name' : 'Scratch','power' : 40, 'type' : 'normal', 'message' : 'the wild x used scratch!', 'status' : none}, \
+'Synthesis': {'name' : 'Synthesis','power' : 0, 'type' : 'grass', 'message' : 'x used synthesis!', 'status' : none}, \
+'Rock Throw': {'name' : 'Rock Throw','power' : 50, 'type' : 'rock', 'message' : 'x used rock throw!', 'status' : none}, \
+'Smack Down' : {'name' : 'Smack Down','power' : 50, 'type' : 'rock', 'message' : 'the wild x used smack down!', 'status' : none}, \
+'Bite' : {'name' : 'Bite','power': 38, 'type': 'dark', 'message' : 'the wild x used bite!', 'status' : none},\
+'Ember' : {'name' : 'Ember','power': 40, 'type': 'fire', 'message' : 'the x used ember!', 'status' : burn},\
+#"Rock Tomb" : {'power' : 50, 'type': 'rock', 'message' : 'Brock’s x used rock tomb!', 'status' : none}, \ 
+#'Stone Edge' : {'power': 100, 'type': 'rock', 'message' : 'Brock’s x used stone edge!', 'status': none}, \
+'Thundershock' : {'name' : 'Thundershock','power': 40, 'type': 'electric', 'message': 'x shocked the opponent!', 'status' : none}}
+
+#pokemon
+tackle = frozenset(moves['Tackle'].items())
+splash = frozenset(moves['Splash'].items())
+iceBeam = frozenset(moves['Ice Beam'].items())
+peck = frozenset(moves['Peck'].items())
+leechSeed = frozenset(moves['Leech Seed'].items())
+scratch = frozenset(moves['Scratch'].items())
+synthesis = frozenset(moves['Synthesis'].items())
+rockThrow = frozenset(moves['Rock Throw'].items())
+smackDown = frozenset(moves['Smack Down'].items())
+ember = frozenset(moves['Ember'].items())
+bite = frozenset(moves['Bite'].items())
+thundershock = frozenset(moves['Thundershock'].items())
+
+growlithe = {'name': 'Growlithe', 'health' : 30, 'max health' : 30, 'attack' : 40, 'defense' : 15, 'speed' : 30,  'exp' : 500, 'level' : 5, 'moves' : {'ember' : 40, 'bite' : 45}, 'desc' : 'Growlithe, a Puppy Pokémon of pleasant demeanor and great diligence. While loyal to its master, it drives enemies away with barks and bites.', 'type' : 'fire'}
+
+seedot ={'name': 'Seedot', 'health' : 23, 'max health' : 23,'attack' : 22, 'defense' : 25, 'speed' : 30, 'exp' : 500, 'level' : 5, 'moves' : {'tackle' : 35},'desc' : 'Seedot, the acorn pokemon. A beige, mask-like pattern covers its large black eyes, and it has two beige feet. It has a gray "cap" with a short stem on top of its head. The stem is used to hang from tree branches in its forest home. While hanging, this Pokémon absorbs moisture and nutrients from the tree until it becomes too heavy and falls to the ground.', 'type' : 'grass'}
+
+geodude ={"name": 'Geodude', 'health' : 30, 'max health' : 30, 'attack' : 25, 'defense' : 50, 'speed' : 20, 'exp' : 500, "level" : 5, "moves" : {'Rock Throw' : 50, 'Smack Down': 45}, "desc" : "Geodude, the Rock Pokémon. Geodude has incredibly high defensive power, making it virtually resistant to any physical attacks.", 'type' : 'rock'}
+
+magikarp ={'name': 'Magikarp', 'health' : 20, 'max health' : 20,'attack' : 10, 'defense' : 22, 'speed' : 40, 'exp' : 500, 'level' : 5, 'moves' : {'Splash' : 0}, 'desc' : 'Magikarp, the Fish Pokémon. Because all Magikarp seem to do is splash around, some consider them weak, but they''re actually a hardy Pokémon that can survive in water no matter how dirty it is.  It jumps very well and can evolve into a powerful Gyarados.', 'type' : 'water'}
+                                                                                                                                
+marill ={'name' : 'Marill', 'health' : 35, 'max health' : 35,'attack' : 20, 'defense' : 25, 'speed' : 24, 'exp' : 500, 'level' : 5, 'moves' : {'Ice Beam' : 60}, 'desc' : 'Marill, the Aqua Mouse Pokémon. The tip of its tail floats in water, so it can swim in any current no matter how rough.', 'type' : 'water fairy'}
+
+spearow ={'name': 'Spearow', 'health' : 25, 'max health' : 25,'attack' : 23, 'defense' : 22, 'speed' : 30, 'exp' : 500, 'level' : 5, 'moves' : {'Peck' : 45}, 'desc' : 'Unlike Pidgey, Spearow has a terrible attitude. It is very wild and will sometimes attack other Pokémon and humans.', 'type' : 'normal flying'}
+
+caterpie ={'name': 'Caterpie', 'health' : 26, 'max health' : 26,'attack' : 20, 'defense' : 18, 'speed' : 25, 'exp' : 500, 'level' : 5, 'moves' : {'Tackle' : 35}, 'desc' : 'Caterpie, the Worm Pokémon. Caterpie uses the suction cups on its feet to climb trees and feed on its favorite leaves.', 'type' : 'bug'}
+
+oddish ={'name': 'Oddish', 'health' : 25, 'max health' : 25, 'attack' : 25, 'defense' : 22, 'speed' : 22, 'exp' : 500, 'level' : 5, 'moves' : {'Tackle' : 35}, 'desc' : 'Oddish. This Pokémon is typically found roaming the forest, scattering pollen as it walks around.', 'type' : 'grass'}
+
+pidgey = {'name' : 'Pidgey', 'health' : 28, 'max health' : 28, 'attack' : 20, 'defense' : 20, 'speed' : 30, 'exp' : 500, 'level' : 5, 'moves' : {'Tackle' : 35}, 'desc' : 'Pidgey is a Flying Pokémon. Among all the Flying Pokémon, it is the gentlest and easiest to capture. A perfect target for the beginning Pokémon Trainer to test his Pokémon''s skills.', 'type' : 'normal flying'}
+
+pikachu = {'name' : 'Pikachu' ,  'health' : 30, 'max health' : 30, 'attack' : 35, 'defense' : 23, 'speed' : 90, 'exp' : 500, 'level' : 5, 'moves' : {'Thundershock' : 40}, 'desc' : 'Pikachu, the Mouse Pokémon. It can generate electric attacks from the electric pouches located in both of its cheeks.', 'type' : 'electric'}
+
+charmander = {'name' : 'Charmander' ,  'health' : 35, 'max health' : 35, 'attack' : 32, 'defense' : 25, 'speed' : 65, 'exp' : 500, 'level' : 5, 'moves' : {'Ember' : 40}, "desc" : 'Charmander, the Lizard Pokémon. When the tip of Charmander''s tail burns brightly, that indicates it''s in good health.', 'type' : 'fire'}
+
+squirtle = {'name' : 'Squirtle' ,  'health' : 39, 'max health' : 39, 'attack' : 24, 'defense' : 32, 'speed' : 43, 'exp' : 500, 'level' : 5, 'moves' : {'Water Gun': 45}, 'desc' : 'Squirtle. This Tiny Turtle Pokémon draws its long neck into its shell to launch incredible water attacks with amazing range and accuracy. The blasts can be quite powerful.', 'type' : 'water'}
+
+bulbasaur = {'name' : 'Bulbasaur' ,  'health' : 40, 'max health' : 40, 'attack' : 25, 'defense' : 27, 'speed' : 45, 'exp' : 500, 'level' : 5, 'moves' : {'Vine Whip': 45}, 'desc' : 'Bulbasaur, the Seed Pokémon. A young Bulbasaur uses the nutrients from its seed for the energy it needs to grow.', 'type' : 'grass'}
+
 
 
 pokemon = []
@@ -83,7 +121,7 @@ print('You send out ', pokemon[0]['name'])
 
 def heal(p):
     for x in p:
-            x['health'] = x['max health']
+        x['health'] = x['max health']
 
 def attack(p1,p2,move):
     dam = (p1['attack'] - p2['defense'])
@@ -131,7 +169,11 @@ def expUp(p, exp):
     if a != p['level']:
         p['level'] = a
         print(p['name'], ' is now level ', a)
-        p['']
+        p['health'] += 5
+        p['attack'] += 5
+        p['defense'] += 5
+        p['health'] += 5
+        p['speed'] += 5
     else:
         p['level'] = a
     
@@ -187,14 +229,27 @@ def clean(pokemon):
             print("Bulbasaur said bulba bulba as he was nice and clean!")
     else:
         print("Invalid choice.")
-#clean(pokemon[0])
+#
+
+def catch(p):
+    print("You threw a pokeball!")
+    time.sleep(2)
+    chance = random.randint(0,2)
+    if chance == 0:
+    	print(“ShAkE...sHaKe...ShAkE… \
+	congratulations you caught the pokemon!”)
+    if chance == 1 or chance == 2:
+	print(“ShAkE...sHaKe...SHAKE BAM!  \
+	oh so close, the pokemon broke out!!!”
+
+        
 
 while pokemon[0]['health'] > 0 and pidgey['health'] > 0:
     battle(pokemon[0],pidgey)
     
 if pokemon[0]['health'] > 0:        
     print('You defeated Pidgey!')
-    expUp(pokemon[0],50)
+    expUp(pokemon[0],150)
 else:
     print('Pidgey defeated you! You rush your pokemon to the pokecenter...')
 
@@ -203,30 +258,12 @@ print('After you defeat the wild Pidgey, you continue on route 20 to Viridian Ci
  
 
 
-sentret = {'health' : 25, 'attack' : 10, 'defense' : 5} 
-print('After you defeated the wild Sentret, you arrive at Viridian City.')
-print('1. Go to the pokemon center and heal your pikachu.')
-print('2. Go to the pokemart and buy some pokeballs and potions.')
-print('3. Go home')
-go = 0
-while go != 1 and go != 2:
-    go = int(input('Where do you want to go? '))
-    if go == 1: 
-        print('You go inside the pokemon center and hand your pokemon to nurse joy.  She then heals them and gives it back to you.  You then leave back outside.')
-        heal(pokemon)
-    elif go == 2:
-        print('You go inside the pokemart to buy some pokeballs and potions.  You have 1,000 dollars.  You spend 250 dollars on 15 pokeballs and 20 potions.  You then go back outside.')
-    elif go == 3:
-        print('You got no home.')
-    else:
-        print('Invalid choice.')
-print('You then decide to walk around and explore . While exploring, you bump into another trainer named Ian and he challenges you to your first trainer battle!')
 
-sentret = {'health' : 25, 'attack' : 10, 'defense' : 5} 
 print('After you defeated the wild Sentret, you arrive at Viridian City.')
 print('1. Go to the pokemon center and heal your pikachu.')
 print('2. Go to the pokemart and buy some pokeballs and potions.')
 print('3. Go home')
+print("4. Clean your pokemon")
 go = 0
 while go != 1 and go != 2:
     go = int(input('Where do you want to go? '))
@@ -237,6 +274,8 @@ while go != 1 and go != 2:
         print('You go inside the pokemart to buy some pokeballs and potions.  You have 1,000 dollars.  You spend 250 dollars on 15 pokeballs and 20 potions.  You then go back outside.')
     elif go == 3:
         print('You got no home.')
+    elif go == 4:
+        clean(pokemon[0])
     else:
         print('Invalid choice.')
 print('You then decide to walk around and explore Viridian City. While exploring, you bump into another trainer named Ian and he challenges you to your first trainer battle!')
@@ -248,3 +287,71 @@ while pokemon[0]['health'] > 0 and oddish['health'] > 0:
 print("Brock, the evil rock type gym leader challenges you to your fist major pokemon battle against a trainer!!!  You must accept as he threatens to kidnap your powerful starter pokemon!  Prove yourself for your and your pokemon's sakes!")
 while pokemon[0]['health'] > 0 and geodude['health'] > 0:
     battle(pokemon[0],geodude)
+while pokemon[0]['health'] > 0 and oddish['health'] > 0:
+    battle(pokemon[0],oddish)
+
+print("Mwahahahaha!  I’ve still got my other Geodude for you to go through!  Go, Onix!")
+while pokemon[0]['health'] > 0 and geodude['health'] > 0:
+    battle(pokemon[0],geodude)
+
+choice = input("Oh no!!  How did you, a measly scrub lord defeat my supreme pokemon?!!")
+
+print("I will now leave this town!  I knew from the first day I laid eyes upon it that it was nothing but trash.")
+print('You have saved the town! Story Mode Complete.')
+print("Created by: Anthony Ma, Brian Ma, and Adrian Ng!")
+print("Please purchase the next Pokemon Gems DLC 'The Adventure Continues…'")
+print("To continue your wondrous journey, arriving in stores near you this Christmas!")
+
+
+print("Would you like to continue this game?   \
+1. Continue or 2. Stop")
+choice= int(input('Enter your choice:  '))
+if choice == 1:
+    print('1. Go to the pokemon center and heal your pikachu.')
+    print('2. Go to the pokemart and buy some pokeballs and potions.')
+    print('3. Go home')
+    print("4. Clean your pokemon")
+    go = 0
+    while go != 1 and go != 2:
+        go = int(input('Where do you want to go? '))
+        if go == 1: 
+            print('You go inside the pokemon center and hand your pokemon to nurse joy.  She then heals them and gives it back to you.  You then leave back outside.')
+            heal(pokemon)
+        elif go == 2:
+            print('You go inside the pokemart to buy some pokeballs and potions.  You have 1,000 dollars.  You spend 250 dollars on 15 pokeballs and 20 potions.  You then go back outside.')
+        elif go == 3:
+            print('You got no home.')
+        elif go == 4:
+            clean(pokemon[0])
+        else:
+            print('Invalid choice.')
+            
+        print("You wandered in the grass and suddenly, a wild Spearow appeared!")
+        while pokemon[0]['health'] > 0 and spearow['health'] > 0:
+            battle(pokemon[0],spearow)
+        
+        print("A big Seedot fell out of the tree and hit you on the head!")
+        while pokemon[0]['health'] > 0 and seedot['health'] > 0:
+            battle(pokemon[0],seedot)
+        
+        print("You decided to go for a swim in the ocean!")
+        while pokemon[0]['health'] > 0 and marill['health'] > 0:
+            battle(pokemon[0],marill)
+        
+        print("Bam!  A crazy magikarp slapped ya in the face!")
+        while pokemon[0]['health'] > 0 and magikarp['health'] > 0:
+            battle(pokemon[0],magikarp)
+        
+        print("Wow that was some great training for your pokemon!  \
+        You went back into town!")
+        
+        print("A caterpie blocks your way!")
+        
+        while pokemon[0]['health'] > 0 and caterpie['health'] > 0:
+            battle(pokemon[0],caterpie)
+        
+elif choice == 2:
+    print("BYE")
+else:
+    print("ok")
+
