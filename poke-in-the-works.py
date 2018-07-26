@@ -149,7 +149,7 @@ def attackBot(p1,p2):
     if p2['health'] < 0:
         p2['health'] = 0
 
-def run(p1, p2):
+def run():
 	runInt = random.randint(0,1)
 	if runInt == 0:
 		print('Ran away successfully!')
@@ -183,7 +183,9 @@ def battle(p1, p2):
     displayHealth(p1, p2)
     print('What will ', p1['name'], ' do?')
     print('1. Attack')
-    print('2. Run')
+	print('2. Catch')
+	print('3. Switch Pokemon')
+    print('4. Run')
     choice= int(input('Enter your choice: '))
     if choice == 1:
         print('---',p1['name'], "'s Moves---")
@@ -193,17 +195,17 @@ def battle(p1, p2):
         moveChoice = int(input('Enter your move: '))
         attack(p1, p2, moveChoice)
         displayHealth(p1, p2)
-        if(p1['health'] > 0 and p2['health'] > 0):
-            print('---',p2['name'], "'s Turn---")
-            attackBot(p2, p1)
-    elif choice == 2:
-        print('You couldn''t get away!')
-        if(p1['health'] > 0 and p2['health'] > 0):
-            print('---',p2['name'],"s Turn---")
-            attackBot(p2, p1)
+	elif choice == 2:
+		catch(p2)
+    elif choice == 4:
+        if run() == True:
+			break
     else:
         print("Invalid move.")
-
+	if(p1['health'] > 0 and p2['health'] > 0):
+            print('---',p2['name'], "'s Turn---")
+			time.sleep(1)
+            attackBot(p2, p1)
 def clean(pokemon):
     print("1 = Pet\n2 = Clean")
     choice = int(input("Enter in your choice!!!!!     "))
@@ -234,16 +236,36 @@ def clean(pokemon):
 def catch(p):
     print("You threw a pokeball!")
     time.sleep(2)
-    chance = random.randint(0,2)
+	print("Shake")
+	time.sleep(1)
+	print("Shake")
+	time.sleep(1)
+	if p['health'] < p['max health']/2:
+		chance = random.randint(0,1)
+	else:
+		chance = random.randint(0,2)
     if chance == 0:
-    	print(“ShAkE...sHaKe...ShAkE… \
-	congratulations you caught the pokemon!”)
-    if chance == 1 or chance == 2:
-	print(“ShAkE...sHaKe...SHAKE BAM!  \
-	oh so close, the pokemon broke out!!!”
-
-        
-
+		print("Shake")
+		time.sleep(1)
+    	print("Congratulations! You have caught ", p['name'],"!")
+		pokemon.append(p)
+    else:
+		print("So close, the pokemon broke out!!!")
+		
+def switch(p,p2):
+	print("Your Pokemon: ")
+	count = 1
+	healthyP = []
+	order = []
+	for x in p:
+		if x['health'] > 0:
+			healthyP.append(x)
+			order.append(count)
+			print(count,". ", x['name'])
+			count += 1
+	choice = input("Enter the pokemon to switch in with the current one.")
+	battle(healthyP[choice-1], p2)
+	print("Go, ",healthyP[choice-1]['name'] , "!") #THIS PROBABLY WON'T WORK
 while pokemon[0]['health'] > 0 and pidgey['health'] > 0:
     battle(pokemon[0],pidgey)
     
@@ -254,12 +276,13 @@ else:
     print('Pidgey defeated you! You rush your pokemon to the pokecenter...')
 
 
-print('After you defeat the wild Pidgey, you continue on route 20 to Viridian City as you journey through another patch of tall grass.  Suddenly, a wild Sentret appears from the grass!')	
+print('After you defeat the wild Pidgey, you continue on route 20 to Viridian City as you journey through another patch of tall grass.  Suddenly, a wild Growlithe appears from the grass!')	
  
+while pokemon[0]['health'] > 0 and growlithe['health'] > 0:
+	battle(pokemon[0],growlithe)
 
 
-
-print('After you defeated the wild Sentret, you arrive at Viridian City.')
+print('After you defeated the wild Growlithe, you arrive at Viridian City.')
 print('1. Go to the pokemon center and heal your pikachu.')
 print('2. Go to the pokemart and buy some pokeballs and potions.')
 print('3. Go home')
@@ -283,8 +306,25 @@ print('You then decide to walk around and explore Viridian City. While exploring
 
 while pokemon[0]['health'] > 0 and oddish['health'] > 0:
     battle(pokemon[0],oddish)
+print("After the exhausting battle, you head to the nearby hotel to rest. Out of nowhere, a Seedot falls on top of your head and you discover gravity.")
+print("Achievement earned: Discovered Gravity")
+time.sleep(1)
+while pokemon[0]['health'] > 0 and seedot['health'] > 0:
+	battle(pokemon[0],seedot)
 
-print("Brock, the evil rock type gym leader challenges you to your fist major pokemon battle against a trainer!!!  You must accept as he threatens to kidnap your powerful starter pokemon!  Prove yourself for your and your pokemon's sakes!")
+print("You finally head to the hotel after a long day's work.")
+print("Sleeping...")
+time.sleep(1)
+print(".")
+time.sleep(1)
+print(".")
+time.sleep(1)
+print(".")
+heal(pokemon)
+
+print("You wake up refreshed and head to the gym to fight the gym leader who you heard has been ruling over the city as a dictator.")
+time.sleep(2)
+print("Brock, the evil rock type gym leader challenges you to your fist major pokemon battle against a trainer!!!  You must accept as he threatens to kidnap your pokemon!  Prove yourself for your and your pokemon's sakes!")
 while pokemon[0]['health'] > 0 and geodude['health'] > 0:
     battle(pokemon[0],geodude)
 while pokemon[0]['health'] > 0 and oddish['health'] > 0:
@@ -294,9 +334,9 @@ print("Mwahahahaha!  I’ve still got my other Geodude for you to go through!  G
 while pokemon[0]['health'] > 0 and geodude['health'] > 0:
     battle(pokemon[0],geodude)
 
-choice = input("Oh no!!  How did you, a measly scrub lord defeat my supreme pokemon?!!")
+print("Oh no!!  How did you, a measly scrub defeat my supreme pokemon?!!")
 
-print("I will now leave this town!  I knew from the first day I laid eyes upon it that it was nothing but trash.")
+print("I'm leaving this town! I knew from the first day I laid eyes upon it that it was nothing but trash.")
 print('You have saved the town! Story Mode Complete.')
 print("Created by: Anthony Ma, Brian Ma, and Adrian Ng!")
 print("Please purchase the next Pokemon Gems DLC 'The Adventure Continues…'")
